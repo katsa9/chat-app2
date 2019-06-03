@@ -18,12 +18,18 @@ const users = [{ username: 'Amy' }, { username: 'John' }];
 // ];
 
 class App extends Component {
-  /*
-  If the user did not type anything, he/she should not be
-  allowed to submit.
-  */
-  isDisabled = () => {
-    return false;
+  state = {
+    messages: [
+      { username: 'Amy', text: 'Hi, Jon!' },
+      { username: 'Amy', text: 'How are you?' },
+      { username: 'John', text: 'Hi, Amy! Good, you?' },
+    ]
+  }
+
+  onNewMessage = newMessage => {  
+    this.setState(currState => ({
+      messages: [...currState.messages, newMessage]
+    }))
   };
 
   render() {
@@ -37,7 +43,9 @@ class App extends Component {
         <div className="container">
           {users.map(usr => (
             <ChatWindow 
-              owner={usr}/>
+              owner={usr.username}
+              onNewMessage={this.onNewMessage}
+              messages={this.state.messages}/>
           ))}
          </div>
       </div>

@@ -4,7 +4,10 @@ import PropTypes from 'prop-types';
 class NewMessage extends Component {
 
   state = {
-    messageText: ""
+    message: {
+      username: '', 
+      text: '' 
+    }
   }
 
   isDisabled = () => {
@@ -12,18 +15,30 @@ class NewMessage extends Component {
   };
 
   handleInputChange = event => {
+    const { name, value } = event.target;
     this.setState(currState => ({
-      messageText: event.target.value
+      ...currState,
+     message: {
+      ...currState.message,
+       username: this.props.ownerName,
+       [name]: value
+     }
     }));
+  }
+
+  handleSubmit = event => {
+    event.preventDefault();
+    this.props.onAddMessage(this.state.message);
   }
 
   render () {
     return (
       <div>
-        <form className="input-group" onSubmit={this.props.onAddMessage}>
+        <form className="input-group" onSubmit={this.handleSubmit}>
           <input 
             type="text" 
             className="form-control" 
+            name="text"
             placeholder="Enter your message..." 
             onChange={this.handleInputChange}/>
           <div className="input-group-append">

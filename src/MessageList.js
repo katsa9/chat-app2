@@ -2,24 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class MessageList extends Component {
-  state = {
-    messages: [
-      { username: 'Amy', text: 'Hi, Jon!' },
-      { username: 'Amy', text: 'How are you?' },
-      { username: 'John', text: 'Hi, Amy! Good, you?' },
-    ]
-  }
 
   render () {
-    const { user } = this.props;
-    const { msgs } = this.state;
+    const { ownerName, messages } = this.props;
     return (
       <ul className="message-list">
-        {msgs.map((message, index) => (
+        {messages.map((message, index) => (
           <li
             key={index}
             className={
-              message.username === user ? 'message sender' : 'message recipient'
+              message.username === ownerName ? 'message sender' : 'message recipient'
             }
           >
             <p>{`${message.username}: ${message.text}`}</p>
@@ -31,7 +23,8 @@ class MessageList extends Component {
 }
 
 PropTypes.propTypes = {
-  ownerName: PropTypes.string.isRequired
+  ownerName: PropTypes.string.isRequired,
+  messages: PropTypes.array.isRequired
 }
 
 export default MessageList;
