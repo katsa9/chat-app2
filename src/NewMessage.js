@@ -14,6 +14,7 @@ class NewMessage extends Component {
     return this.state.messageText === "";
   };
 
+  //this could be improved by having only the message text as state. It is only necessary to add the user one level up before it gets added to the state in App.js
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState(currState => ({
